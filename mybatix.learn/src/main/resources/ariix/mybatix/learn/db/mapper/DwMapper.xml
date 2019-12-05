@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ariix.mybatix.learn.db.mapper.DwMapper">
+
+	<select id="distPhone" resultType="String">
+		select nvl(home_phone, work_phone) from dstdb where dist_id=#{distId,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<insert id="saveWebCategory" parameterType="WebCategory">
+		INSERT INTO web_category_back VALUES (#{itemCode}, #{categoryKey}, #{displayOrder}, #{disclaimer}, #{startDate, jdbcType=DATE}, #{endDate, jdbcType=DATE})
+	</insert>
+
+	<select id="getWebCategory" parameterType="WebCategory" resultType="WebCategory">
+		SELECT * FROM web_category_back WHERE item_code = #{itemCode} AND category_key = #{categoryKey}
+	</select>
+	
+	
+	<update  id="updateWebCategory" parameterType="WebCategory" flushCache="true">
+		UPDATE web_category_back SET display_Order = #{displayOrder} WHERE item_code = #{itemCode} AND category_key = #{categoryKey}
+	</update>
+	
+	
+	<!-- flushCache="true", for delete elelment, flushCache default is  true -->
+	<delete id="deleteWebCategory" parameterType="WebCategory"  >
+		DELETE FROM web_category_back WHERE item_code = #{itemCode} AND category_key = #{categoryKey}
+	</delete>
+	
+	<select id="findWebCategoryList" resultType="WebCategory">
+		select * from web_category_back WHERE  start_DAte > #{param1} AND <![CDATA[end_date <  #{param2}]]> 	
+	</select>
+	
+</mapper> 

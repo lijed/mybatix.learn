@@ -40,10 +40,8 @@ public class SqlSessionGoodPractice {
 		// Since JDK7
 		 SqlSession sqlSession = DatabaseUtils.getSqlSessionFactory().openSession();
 		try {
-			
 			String phone = sqlSession.selectOne("ariix.mybatix.learn.db.mapper.DwMapper.distPhone", 26166);
 			System.out.println(phone);
-			
 		} finally {
 			if (sqlSession != null) {
 				sqlSession.close();

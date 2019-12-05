@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class DatabaseUtils {
 
+	private static final String ENV_ORACLE = "oracle";
 	// Life Scope is the application life cycle
 	private static SqlSessionFactory sqlSessionFactory;
 
@@ -23,7 +24,7 @@ public class DatabaseUtils {
 					try {
 						String resource = "config/MyBatisConfiguration.xml";
 						Reader reader = Resources.getResourceAsReader(resource);
-						sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader, "oracle");
+						sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader, ENV_ORACLE);
 						// SqlSessionFactoryBuilder instance should be a local instance
 					} catch (IOException e) {
 						e.printStackTrace();

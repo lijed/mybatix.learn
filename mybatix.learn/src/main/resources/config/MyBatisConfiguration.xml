@@ -5,13 +5,15 @@
 <configuration>
 
     <settings>
+        <setting name="logImpl" value="LOG4J"/>
         <setting name="cacheEnabled" value="true"/>
         <setting name="lazyLoadingEnabled" value="false"/>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-    
+     
      <typeAliases>
-     	<typeAlias type="ariix.mybatix.learn.db.mapper.WebCategory" alias="WebCategory"/>
+       <!-- 	<typeAlias type="ariix.mybatix.learn.db.vo.WebCategory" alias="WebCategory"/> -->
+     	<package name="ariix.mybatix.learn.db.vo"/>
      </typeAliases>
     
     <typeHandlers>

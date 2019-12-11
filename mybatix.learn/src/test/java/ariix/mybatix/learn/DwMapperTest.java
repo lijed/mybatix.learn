@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import ariix.mybatix.learn.db.DatabaseUtils;
 import ariix.mybatix.learn.db.mapper.DwMapper;
-import ariix.mybatix.learn.db.mapper.WebCategory;
+import ariix.mybatix.learn.db.vo.WebCategory;
 
 
 public class DwMapperTest extends TestCase {
@@ -39,7 +39,7 @@ public class DwMapperTest extends TestCase {
 		}
 	}
 	
-	@Ignore
+
 	@Test
 	public void testDistPhone() {
 		String phone = dbMapper.distPhone("1700998");
@@ -89,6 +89,7 @@ public class DwMapperTest extends TestCase {
 	
 	
 	@Test
+	@Ignore
 	public void testDeleteResultVisibleToClose() {
 		// In one Connection, first you get it, then delete it, finally you get it and the final result is null,
 		// the property flushCase of <delete> is true by default
@@ -143,6 +144,9 @@ public class DwMapperTest extends TestCase {
 		session.commit();
 	}
 	
+	
+	@Ignore
+	@Test
 	public void testFindWebCategoryList() {
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DAY_OF_MONTH, -10);

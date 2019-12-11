@@ -3,6 +3,8 @@ package ariix.mybatix.learn.db.mapper;
 import java.util.Date;
 import java.util.List;
 
+import ariix.mybatix.learn.db.vo.WebCategory;
+
 public interface DwMapper {
 	
 	String distPhone(String distId);

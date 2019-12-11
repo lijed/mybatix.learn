@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import ariix.mybatix.learn.db.DatabaseUtils;
 
 public class SqlSessionGoodPractice {
+	
 
 	public static void main(String[] args) {
 		SqlSessionGoodPractice instance = new SqlSessionGoodPractice();

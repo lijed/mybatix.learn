@@ -1,11 +1,13 @@
 package ariix.mybatix.learn.db;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.log4j.PropertyConfigurator;
 
 public class DatabaseUtils {
 
@@ -14,7 +16,13 @@ public class DatabaseUtils {
 	private static SqlSessionFactory sqlSessionFactory;
 
 	static {
-
+		// Log4j 在创建Session Factory 创建 之前进行设置
+		System.setProperty("log4j.configuration", "config/log4j.properties");
+		
+//		String worddir = "C:\\Java\\log4j";        
+//		String log4jConfigFileFullName = worddir + File.separator +  "config" +File.separator+ "log4j.properties";
+//		PropertyConfigurator.configure(log4jConfigFileFullName);
+		
 		if (sqlSessionFactory == null) {
 
 			synchronized (DatabaseUtils.class) {
@@ -33,7 +41,6 @@ public class DatabaseUtils {
 				}
 			}
 		}
-
 	}
 
 	public static SqlSessionFactory getSqlSessionFactory() {

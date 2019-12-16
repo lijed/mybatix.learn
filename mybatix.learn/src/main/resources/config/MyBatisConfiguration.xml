@@ -25,9 +25,9 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="oracle.jdbc.OracleDriver"/>
-                <property name="url" value="jdbc:oracle:thin:@172.30.1.99:1521:ARIIX"/>
-                <property name="username" value="dw"/>
-                <property name="password" value="dw"/>
+                <property name="url" value="jdbc:oracle:thin:@172.30.1.85:1521:iconndev"/>
+                <property name="username" value="iconn"/>
+                <property name="password" value="iconn"/>
                 <property name="poolMaximumActiveConnections" value="1"/>
                 <!-- – This is the number of active (i.e. in use) connections that can exist at any given time. Default: 10 -->
                 <property name="poolMaximumIdleConnections" value="1"/>
@@ -72,7 +72,7 @@
     
     
     <mappers>
-        <mapper resource="ariix/mybatix/learn/db/mapper/DwMapper.xml"/>
+       <package name="ariix.mybatix.learn.db.mapper"/>
     </mappers>
     
 </configuration>

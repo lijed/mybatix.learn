@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ariix.mybatix.learn.db.mapper.CustomerMapper">
+
+	<select id="selectCustomerById" parameterType="Long" resultMap="customerMap">
+		SELECT
+		cust_id,
+		sponsor_id,
+		country_code,
+		r_first_name,
+		r_middle_name,
+		r_last_name,
+		n_first_name,
+		n_middle_name,
+		n_last_name,
+		company_name,
+		display_name,
+		recognition_name,
+		customer_type,
+		current_rank,
+		birth_date,
+		entry_date,
+		termination_date,
+		last_update,
+		suspension_date,
+		customer_status,
+		language,
+		renewal_date,
+		tl_level,
+		kk_first,
+		kk_last,
+		entry_week_id,
+		entered_by,
+		source,
+		target_tl_level,
+		recognition_native_name,
+		gender,
+		sub_cust_type,
+		dept_number,
+		birth_city,
+		birth_country,
+		country_nationality,
+		courtesy_title,
+		country_of_residence,
+		xo_pro_thru_week,
+		recognition_country,
+		nick_name
+		FROM
+			cust
+		where cust_id = #{custId,jdbcType=NUMERIC}
+	</select>
+	
+	<resultMap id="customerMap" type="CustomerDomain" autoMapping="true">
+		<id column="cust_id" property="custId"/>
+		<result column="sponsor_id" property="sponsorId"/>
+		<result column="r_first_name" property="rFirstName"/>
+		<association property="custGovernmentId" column="cust_id" select="selectGovernmentIdById" />
+	</resultMap>
+
+	<select id="selectGovernmentIdById" parameterType="Long" resultType="CustomerIdsDomain">
+		SELECT
+		CUST_ID, TYPE, VAL, VERIFIED, expired_date
+		FROM CUST_IDS
+		WHERE CUST_ID = #{custId,jdbcType=NUMERIC}
+		and type = 1
+	</select>
+
+</mapper> 

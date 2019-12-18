@@ -3,9 +3,47 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ariix.mybatix.learn.db.mapper.CustomerMapper">
+	
+	
 
-	<select id="selectCustomerById" parameterType="Long" resultMap="customerMap">
+	<select id="getCustomerById" parameterType="Long" resultMap="customerMap">
 		SELECT
+			<include refid="customer_columns" />
+		FROM
+			cust
+		where cust_id = #{custId,jdbcType=NUMERIC}
+	</select>
+	
+	<resultMap id="customerMap" type="CustomerDomain" autoMapping="true">
+		<id column="cust_id" property="custId"/>
+		<result column="sponsor_id" property="sponsorId"/>
+		<result column="r_first_name" property="rFirstName"/>
+		<association property="custGovernmentId" column="cust_id" select="getGovernmentIdById" />
+	</resultMap>
+
+	<select id="getGovernmentIdById" parameterType="Long" resultType="CustomerIdsDomain" >
+		SELECT
+		CUST_ID, TYPE, VAL, VERIFIED, expired_date
+		FROM CUST_IDS
+		WHERE CUST_ID = #{custId,jdbcType=NUMERIC}
+		and type = 1
+	</select>
+	
+	<!-- databaseId="" -->
+	<select id="findCustomersBy" parameterType="CustomerSearchCriteria" resultType="CustomerDomain" >
+		<bind name="firstNamePattern" value="'%' + firstName + '%'" />
+		select 
+			<include refid="customer_columns" /> 
+		From cust 
+		<where>
+			country_code = #{countryCode, jdbcType=VARCHAR}
+			<if test="firstName != null">
+				AND upper(r_first_name) LIKE #{firstNamePattern}
+			</if>
+		</where>
+	</select>
+	
+	<sql id="customer_columns">
 		cust_id,
 		sponsor_id,
 		country_code,
@@ -47,24 +85,6 @@
 		xo_pro_thru_week,
 		recognition_country,
 		nick_name
-		FROM
-			cust
-		where cust_id = #{custId,jdbcType=NUMERIC}
-	</select>
-	
-	<resultMap id="customerMap" type="CustomerDomain" autoMapping="true">
-		<id column="cust_id" property="custId"/>
-		<result column="sponsor_id" property="sponsorId"/>
-		<result column="r_first_name" property="rFirstName"/>
-		<association property="custGovernmentId" column="cust_id" select="selectGovernmentIdById" />
-	</resultMap>
-
-	<select id="selectGovernmentIdById" parameterType="Long" resultType="CustomerIdsDomain">
-		SELECT
-		CUST_ID, TYPE, VAL, VERIFIED, expired_date
-		FROM CUST_IDS
-		WHERE CUST_ID = #{custId,jdbcType=NUMERIC}
-		and type = 1
-	</select>
+	</sql>
 
 </mapper> 

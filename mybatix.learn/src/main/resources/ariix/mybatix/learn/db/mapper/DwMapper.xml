@@ -31,5 +31,5 @@
 	<select id="findWebCategoryList" resultType="WebCategory">
 		select * from web_category_back WHERE  start_DAte > #{param1} AND <![CDATA[end_date <  #{param2}]]> 	
 	</select>
-	
+		
 </mapper> 

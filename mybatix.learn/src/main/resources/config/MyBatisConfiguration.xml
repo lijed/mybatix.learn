@@ -4,75 +4,115 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-    <settings>
-        <setting name="logImpl" value="LOG4J"/>
-        <setting name="cacheEnabled" value="true"/>
-        <setting name="lazyLoadingEnabled" value="false"/>
-        <setting name="mapUnderscoreToCamelCase" value="true"/>
-    </settings>
-     
-     <typeAliases>
-       <!-- 	<typeAlias type="ariix.mybatix.learn.db.vo.WebCategory" alias="WebCategory"/> -->
-     	<package name="ariix.mybatix.learn.db.vo"/>
-     </typeAliases>
-    
-    <typeHandlers>
- 		 <typeHandler handler="ariix.mybatix.learn.db.typehandler.ExampleTypeHandler" />
+	<properties resource="config/db.properties" />
+
+	<settings>
+		<setting name="logImpl" value="LOG4J" />
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="aggressiveLazyLoading" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<typeAliases>
+		<!-- <typeAlias type="ariix.mybatix.learn.db.vo.WebCategory" alias="WebCategory"/> -->
+		<package name="ariix.mybatix.learn.db.vo" />
+	</typeAliases>
+
+	<typeHandlers>
+		<typeHandler handler="ariix.mybatix.learn.db.typehandler.ExampleTypeHandler" />
 	</typeHandlers>
-    
-    <environments default="oracle">
-        <environment id="oracle">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="oracle.jdbc.OracleDriver"/>
-                <property name="url" value="jdbc:oracle:thin:@172.30.1.85:1521:iconndev"/>
-                <property name="username" value="iconn"/>
-                <property name="password" value="iconn"/>
-                <property name="poolMaximumActiveConnections" value="1"/>
-                <!-- – This is the number of active (i.e. in use) connections that can exist at any given time. Default: 10 -->
-                <property name="poolMaximumIdleConnections" value="1"/>
-                <!--  – The number of idle connections that can exist at any given time. -->
-                <property name="poolMaximumCheckoutTime" value="200000"/>
-                <!--  – This is the amount of time that a Connection can be "checked out" of the pool before it will be forcefully returned. Default: 20000ms (i.e. 20 seconds) -->
-                <property name="poolTimeToWait" value="20000"/>
-                <!--  – This is a low level setting that gives the pool a chance to print a log status and re-attempt the acquisition of a connection in the case that it’s taking unusually long (to avoid failing silently forever if the pool is misconfigured). Default: 20000ms (i.e. 20 seconds) -->
-                <property name="poolPingQuery" value="select dummy from dual"/>
-                <!--  – The Ping Query is sent to the database to validate that a connection is in good working order and is ready to accept requests. The default is "NO PING QUERY SET", which will cause most database drivers to fail with a decent error message. -->
-                <property name="poolPingEnabled" value="true"/>
-                <!--  – This enables or disables the ping query. If enabled, you must also set the poolPingQuery property with a valid SQL statement (preferably a very fast one). Default: false. -->
-                <property name="poolPingConnectionsNotUsedFor" value="0"/>
-                <!--  – This configures how often the poolPingQuery will be used. This can be set to match the typical timeout for a database connection, to avoid unnecessary pings. Default: 0 (i.e. all connections are pinged every time – but only if poolPingEnabled is true of course). -->
-            </dataSource>
-        </environment>
-<!--         <environment id="dt"> -->
-<!--             <transactionManager type="JDBC"/> -->
-<!--             <dataSource type="POOLED"> -->
-<!--                 <property name="driver" value="sun.jdbc.odbc.JdbcOdbcDriver"/> -->
-<!--                 <property name="driver.charSet" value="GBK"/> -->
-<!--                 <property name="url" value="jdbc:odbc:ARX-live"/> -->
-<!--                 <property name="username" value="ARX_Crystal"/> -->
-<!--                 <property name="password" value="J7stasad"/> -->
-<!--                 <property name="poolMaximumActiveConnections" value="1"/> -->
-<!--                 – This is the number of active (i.e. in use) connections that can exist at any given time. Default: 10 -->
-<!--                 <property name="poolMaximumIdleConnections" value="1"/> -->
-<!--                  – The number of idle connections that can exist at any given time. -->
-<!--                 <property name="poolMaximumCheckoutTime" value="200000"/> -->
-<!--                  – This is the amount of time that a Connection can be "checked out" of the pool before it will be forcefully returned. Default: 20000ms (i.e. 20 seconds) -->
-<!--                 <property name="poolTimeToWait" value="200000"/> -->
-<!--                  – This is a low level setting that gives the pool a chance to print a log status and re-attempt the acquisition of a connection in the case that it’s taking unusually long (to avoid failing silently forever if the pool is misconfigured). Default: 20000ms (i.e. 20 seconds) -->
-<!--                 <property name="poolPingQuery" value="select country_code from coudb where country_code is null"/> -->
-<!--                  – The Ping Query is sent to the database to validate that a connection is in good working order and is ready to accept requests. The default is "NO PING QUERY SET", which will cause most database drivers to fail with a decent error message. -->
-<!--                 <property name="poolPingEnabled" value="true"/> -->
-<!--                  – This enables or disables the ping query. If enabled, you must also set the poolPingQuery property with a valid SQL statement (preferably a very fast one). Default: false. -->
-<!--                 <property name="poolPingConnectionsNotUsedFor" value="0"/> -->
-<!--                  – This configures how often the poolPingQuery will be used. This can be set to match the typical timeout for a database connection, to avoid unnecessary pings. Default: 0 (i.e. all connections are pinged every time – but only if poolPingEnabled is true of course). -->
-<!--             </dataSource> -->
-<!--         </environment> -->
-    </environments>
-    
-    
-    <mappers>
-       <package name="ariix.mybatix.learn.db.mapper"/>
-    </mappers>
-    
+
+	<environments default="oracle">
+		<environment id="oracle">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="url"
+					value="jdbc:oracle:thin:@172.30.1.85:1521:iconndev" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${username}" />
+				<property name="poolMaximumActiveConnections" value="1" />
+				<!-- – This is the number of active (i.e. in use) connections that can 
+					exist at any given time. Default: 10 -->
+				<property name="poolMaximumIdleConnections" value="1" />
+				<!-- – The number of idle connections that can exist at any given time. -->
+				<property name="poolMaximumCheckoutTime" value="200000" />
+				<!-- – This is the amount of time that a Connection can be "checked out" 
+					of the pool before it will be forcefully returned. Default: 20000ms (i.e. 
+					20 seconds) -->
+				<property name="poolTimeToWait" value="20000" />
+				<!-- – This is a low level setting that gives the pool a chance to print 
+					a log status and re-attempt the acquisition of a connection in the case that 
+					it’s taking unusually long (to avoid failing silently forever if the pool 
+					is misconfigured). Default: 20000ms (i.e. 20 seconds) -->
+				<property name="poolPingQuery" value="select dummy from dual" />
+				<!-- – The Ping Query is sent to the database to validate that a connection 
+					is in good working order and is ready to accept requests. The default is 
+					"NO PING QUERY SET", which will cause most database drivers to fail with 
+					a decent error message. -->
+				<property name="poolPingEnabled" value="true" />
+				<!-- – This enables or disables the ping query. If enabled, you must 
+					also set the poolPingQuery property with a valid SQL statement (preferably 
+					a very fast one). Default: false. -->
+				<property name="poolPingConnectionsNotUsedFor" value="0" />
+				<!-- – This configures how often the poolPingQuery will be used. This 
+					can be set to match the typical timeout for a database connection, to avoid 
+					unnecessary pings. Default: 0 (i.e. all connections are pinged every time 
+					– but only if poolPingEnabled is true of course). -->
+			</dataSource>
+		</environment>
+		<!-- <environment id="dt"> -->
+		<!-- <transactionManager type="JDBC"/> -->
+		<!-- <dataSource type="POOLED"> -->
+		<!-- <property name="driver" value="sun.jdbc.odbc.JdbcOdbcDriver"/> -->
+		<!-- <property name="driver.charSet" value="GBK"/> -->
+		<!-- <property name="url" value="jdbc:odbc:ARX-live"/> -->
+		<!-- <property name="username" value="ARX_Crystal"/> -->
+		<!-- <property name="password" value="J7stasad"/> -->
+		<!-- <property name="poolMaximumActiveConnections" value="1"/> -->
+		<!-- – This is the number of active (i.e. in use) connections that can 
+			exist at any given time. Default: 10 -->
+		<!-- <property name="poolMaximumIdleConnections" value="1"/> -->
+		<!-- – The number of idle connections that can exist at any given time. -->
+		<!-- <property name="poolMaximumCheckoutTime" value="200000"/> -->
+		<!-- – This is the amount of time that a Connection can be "checked out" 
+			of the pool before it will be forcefully returned. Default: 20000ms (i.e. 
+			20 seconds) -->
+		<!-- <property name="poolTimeToWait" value="200000"/> -->
+		<!-- – This is a low level setting that gives the pool a chance to print 
+			a log status and re-attempt the acquisition of a connection in the case that 
+			it’s taking unusually long (to avoid failing silently forever if the pool 
+			is misconfigured). Default: 20000ms (i.e. 20 seconds) -->
+		<!-- <property name="poolPingQuery" value="select country_code from coudb 
+			where country_code is null"/> -->
+		<!-- – The Ping Query is sent to the database to validate that a connection 
+			is in good working order and is ready to accept requests. The default is 
+			"NO PING QUERY SET", which will cause most database drivers to fail with 
+			a decent error message. -->
+		<!-- <property name="poolPingEnabled" value="true"/> -->
+		<!-- – This enables or disables the ping query. If enabled, you must also 
+			set the poolPingQuery property with a valid SQL statement (preferably a very 
+			fast one). Default: false. -->
+		<!-- <property name="poolPingConnectionsNotUsedFor" value="0"/> -->
+		<!-- – This configures how often the poolPingQuery will be used. This can 
+			be set to match the typical timeout for a database connection, to avoid unnecessary 
+			pings. Default: 0 (i.e. all connections are pinged every time – but only 
+			if poolPingEnabled is true of course). -->
+		<!-- </dataSource> -->
+		<!-- </environment> -->
+
+	</environments>
+
+
+<!-- 	<databaseIdProvider type="DB_VENDOR"> -->
+<!-- 		<property name="SQL Server" value="sqlserver" /> -->
+<!-- 		<property name="DB2" value="db2" /> -->
+<!-- 		<property name="Oracle" value="oracle" /> -->
+<!-- 	</databaseIdProvider> -->
+
+	<mappers>
+		<package name="ariix.mybatix.learn.db.mapper" />
+	</mappers>
+
 </configuration>

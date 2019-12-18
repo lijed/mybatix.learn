@@ -16,6 +16,9 @@ public class DatabaseUtils {
 	private static SqlSessionFactory sqlSessionFactory;
 
 	static {
+		
+		//Here is code for enabling log4j
+		
 		// Log4j 在创建Session Factory 创建 之前进行设置
 		System.setProperty("log4j.configuration", "config/log4j.properties");
 		

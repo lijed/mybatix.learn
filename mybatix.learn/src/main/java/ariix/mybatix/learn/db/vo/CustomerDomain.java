@@ -69,6 +69,16 @@ public class CustomerDomain {
 	private String nickName;
 
 	private CustomerIdsDomain custGovernmentId;
+	
+	private List<CustomerFlagsDomain> custFlags;
+	
+	public List<CustomerFlagsDomain> getCustFlags() {
+		return custFlags;
+	}
+
+	public void setCustFlags(List<CustomerFlagsDomain> custFlags) {
+		this.custFlags = custFlags;
+	}
 
 	public String getEmailEnterBy() {
 		return emailEnterBy;

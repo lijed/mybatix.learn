@@ -19,6 +19,8 @@
 		<result column="sponsor_id" property="sponsorId"/>
 		<result column="r_first_name" property="rFirstName"/>
 		<association property="custGovernmentId" column="cust_id" select="getGovernmentIdById" />
+		<!-- The javaType attribute is really unnecessary, as MyBatis will figure this out for you in most cases. So you can often shorten this down to simply: -->
+		<collection property="custFlags" ofType="CustomerFlagsDomain" column="cust_id"  select="selectCustFlagByCustId" javaType="ArrayList" />
 	</resultMap>
 
 	<select id="getGovernmentIdById" parameterType="Long" resultType="CustomerIdsDomain" >
@@ -76,6 +78,26 @@
 				AND upper(r_first_name) LIKE #{firstNamePattern}
 			</if>
 		</trim>
+	</select>
+	
+	<select id="findCustomersWithCollection" parameterType="CustomerSearchCriteria" resultMap="customerMap" >
+		<bind name="firstNamePattern" value="'%' + firstName + '%'" />
+		select 
+			<include refid="customer_columns" /> 
+		From cust 
+		<trim prefix="Where" prefixOverrides="AND | OR">
+			country_code = #{countryCode, jdbcType=VARCHAR}
+			<if test="firstName != null">
+				AND upper(r_first_name) LIKE #{firstNamePattern}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="selectCustFlagByCustId" resultType="CustomerFlagsDomain" parameterType="long">
+		select 
+    		CUST_ID, FLAG_ID, VAL, CREATE_DATE
+		From cust_Flag
+		where cust_id = #{custId}
 	</select>
 	
 	<!-- the set element will dynamically prepend the SET keyword, and also eliminate any extraneous commas that might trail the value assignments after the conditions are applied. -->

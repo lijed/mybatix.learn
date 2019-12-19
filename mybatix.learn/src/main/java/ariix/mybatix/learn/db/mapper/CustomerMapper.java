@@ -35,4 +35,7 @@ public interface CustomerMapper {
 		"</script>"})
 	public void updateCustomerWithScript(CustomerDomain cust);
 	
+	
+	public List<CustomerDomain> findCustomersWithCollection(SearchCriteria searchCriteria);
+	
 }

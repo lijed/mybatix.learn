@@ -1,5 +1,7 @@
 package ariix.mybatix.learn.db.vo;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class CustomerSearchCriteria implements SearchCriteria {
@@ -9,6 +11,7 @@ public class CustomerSearchCriteria implements SearchCriteria {
 	private String stateCode;
 	private String emailAddress;
 	private String phoneNumber;
+	private List<Long> custIds;
 
 	public String getCountryCode() {
 		return countryCode;
@@ -53,4 +56,11 @@ public class CustomerSearchCriteria implements SearchCriteria {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public List<Long> getCustIds() {
+		return custIds;
+	}
+
+	public void setCustIds(List<Long> custIds) {
+		this.custIds = custIds;
+	}
 }

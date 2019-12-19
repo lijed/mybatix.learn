@@ -30,6 +30,7 @@
 	</select>
 	
 	<!-- databaseId="" -->
+	<!-- The where element knows to only insert "WHERE" if there is any content returned by the containing tags. Furthermore, if that content begins with "AND" or "OR", it knows to strip it off. -->	
 	<select id="findCustomersBy" parameterType="CustomerSearchCriteria" resultType="CustomerDomain" >
 		<bind name="firstNamePattern" value="'%' + firstName + '%'" />
 		select 
@@ -42,6 +43,61 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="findCustomersWithForEach" parameterType="CustomerSearchCriteria" resultType="CustomerDomain" >
+		<if test="firstName != null">
+			<bind name="firstNamePattern" value="'%' + firstName + '%'" />
+		</if>
+		select 
+			<include refid="customer_columns" /> 
+		From cust 
+		<trim  prefix="WHERE" prefixOverrides=" AND | OR">
+			country_code = #{countryCode, jdbcType=VARCHAR}
+			<if test="firstName != null">
+				AND upper(r_first_name) LIKE #{firstNamePattern}
+			</if>
+			<if test="custIds != null">
+				 AND cust_id in 
+				<foreach collection="custIds" item="custId" open="(" separator="," close=")">
+					#{custId}
+				</foreach>
+			</if>
+		</trim>
+	</select>
+	
+	<select id="findCustomersByWithTrim" parameterType="CustomerSearchCriteria" resultType="CustomerDomain" >
+		<bind name="firstNamePattern" value="'%' + firstName + '%'" />
+		select 
+			<include refid="customer_columns" /> 
+		From cust 
+		<trim prefix="Where" prefixOverrides="AND | OR">
+			country_code = #{countryCode, jdbcType=VARCHAR}
+			<if test="firstName != null">
+				AND upper(r_first_name) LIKE #{firstNamePattern}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- the set element will dynamically prepend the SET keyword, and also eliminate any extraneous commas that might trail the value assignments after the conditions are applied. -->
+	<update id="updateCustomerWithSet">
+		UPDATE CUST
+		<set>
+			<if test="rFirstName != null and rFirstName.length > 0">r_first_name=#{rFirstName},</if>		
+			<if test="rMiddleName != null">R_MIDDLE_NAME=#{rMiddleName},</if>		
+			<if test="rLastName != null">R_LAST_NAME=#{rLastName}</if>		
+		</set>
+		where cust_id = #{custId}
+	</update>
+	
+	<update id="updateCustomerWithTrim">
+		UPDATE CUST
+ 		<trim  suffix="SET" suffixOverrides=",">
+			<if test="rFirstName != null and rFirstName.length > 0">r_first_name=#{rFirstName}</if>		
+			<if test="rMiddleName != null">R_MIDDLE_NAME=#{rMiddleName}</if>		
+			<if test="rLastName != null">R_LAST_NAME=#{rLastName}</if>		
+		</trim>
+		where cust_id = #{custId}
+	</update>
 	
 	<sql id="customer_columns">
 		cust_id,

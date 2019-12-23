@@ -4,7 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ariix.mybatix.learn.db.mapper.CustomerMapper">
 	
-	
+	<!-- type=""  the customized cache -->
+<!-- 	<cache blocking="" eviction="" flushInterval="" readOnly="" size=""  >
+		<property name="" value=""/>
+	</cache> -->
 
 	<select id="getCustomerById" parameterType="Long" resultMap="customerMap">
 		SELECT
@@ -121,7 +124,7 @@
 		where cust_id = #{custId}
 	</update>
 	
-	<sql id="customer_columns">
+	<sql id="customer_columns" >
 		cust_id,
 		sponsor_id,
 		country_code,

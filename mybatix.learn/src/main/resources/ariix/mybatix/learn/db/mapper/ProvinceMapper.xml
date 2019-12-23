@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ariix.mybatix.learn.db.mapper.ProvinceMapper">
+
+	<select id="getProvinces" resultMap="provinceMap">
+		select PROVINCE, CITY, DISTRICT, ZIP_CODE  From tb_district_cn	where province = '河北省'
+	</select>	
+	
+	<resultMap id="provinceMap" type="Province" >
+		<id column="PROVINCE" property="province"/>
+		<collection property="citys" ofType="City">
+			<id column="CITY" property="city"/>
+			<collection property="distrcts"  ofType="String">
+				<id column="DISTRICT" />
+			</collection>
+		</collection>
+	</resultMap>
+
+</mapper> 

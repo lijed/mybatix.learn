@@ -14,10 +14,15 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 
-	<typeAliases>
-		<!-- <typeAlias type="ariix.mybatix.learn.db.vo.WebCategory" alias="WebCategory"/> -->
+	<!--
+	 给默认一个Domain or Vo起一个别名
+	 <typeAlias type="ariix.mybatix.learn.db.vo.WebCategory" alias="WebCategory"/> 
+	-->
+	
+	<typeAliases >
 		<package name="ariix.mybatix.learn.db.vo" />
 	</typeAliases>
+	
 
 	<typeHandlers>
 		<typeHandler handler="ariix.mybatix.learn.db.typehandler.ExampleTypeHandler" />

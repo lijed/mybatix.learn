@@ -5,12 +5,12 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.apache.ibatis.session.SqlSession;
-import org.junit.Assert;
 import org.junit.Test;
 
 import ariix.mybatix.learn.db.DatabaseUtils;
 import ariix.mybatix.learn.db.mapper.ProvinceMapper;
 import ariix.mybatix.learn.db.vo.City;
+import ariix.mybatix.learn.db.vo.DistrictCity;
 import ariix.mybatix.learn.db.vo.Province;
 
 /**
@@ -20,7 +20,7 @@ import ariix.mybatix.learn.db.vo.Province;
  *
  * 
  */
-public class Collections$MapperProvinceTest extends TestCase {
+public class Discriminator$ResultMap$MapperProvinceTest extends TestCase {
 
 	SqlSession session;
 	ProvinceMapper provinceMapper;
@@ -43,42 +43,21 @@ public class Collections$MapperProvinceTest extends TestCase {
 		}
 	}
 
-	@Test
-	public void testOneToManyMappingWithCollection() {
-		Province peking = new Province();
-		peking.setProvince("北京市");
-		List<Province> provinces = provinceMapper.getProvinces(peking);
-		System.out.println(provinces.size());
-		for (Province p : provinces) {
-			System.out.println("Provice：---" + p.getProvince());
-			for (City city : p.getCitys()) {
-				System.out.println("  City-------：" + city.getCity());
-				for (String district : city.getDistrcts()) {
-					System.out.println("  District----------：" + district);
-				}
-			}
-		}
-	}
-
-	@Test
-	public void testGetProvinceNameBy() {
-		String pekingName = "北京市";
-		String proviceName = provinceMapper.getProvinceNameBy(pekingName);
-		Assert.assertEquals("should be 北京市", pekingName, proviceName);
-	}
-
+	
 	/**
-	 * mainly for parameters
+	 *  主要是为了Mybatis的鉴别器
 	 */
 	@Test
-	public void testFindByProvinceWithCollection() {
-		String provinceName = "河北省";
-		String cityName = "秦皇岛市";
-		List<Province> provinces = provinceMapper.findProvinceBy(provinceName,
-				cityName);
+	public void testResultMap$Discriminator() {
+		Province peking = new Province();
+		peking.setProvince("北京市");
+		List<Province> provinces = provinceMapper.getProvincesWithDiscriminator(peking);
 		System.out.println(provinces.size());
 		for (Province p : provinces) {
 			System.out.println("Provice：---" + p.getProvince());
+			if (p instanceof DistrictCity) {
+				System.out.println("District City: " + ((DistrictCity)p).getCity());
+			}
 			for (City city : p.getCitys()) {
 				System.out.println("  City-------：" + city.getCity());
 				for (String district : city.getDistrcts()) {
@@ -87,5 +66,4 @@ public class Collections$MapperProvinceTest extends TestCase {
 			}
 		}
 	}
-
 }

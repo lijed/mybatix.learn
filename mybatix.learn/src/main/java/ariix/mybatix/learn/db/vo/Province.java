@@ -3,23 +3,26 @@ package ariix.mybatix.learn.db.vo;
 import java.util.Set;
 
 public class Province {
-	
+
 	private String province;
 	private Set<City> citys;
-	
+
 	public String getProvince() {
 		return province;
 	}
+
 	public void setProvince(String province) {
 		this.province = province;
 	}
+
 	public Set<City> getCitys() {
 		return citys;
 	}
+
 	public void setCitys(Set<City> citys) {
 		this.citys = citys;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -28,6 +31,7 @@ public class Province {
 				+ ((province == null) ? 0 : province.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,6 +48,5 @@ public class Province {
 			return false;
 		return true;
 	}
-	
-	
+
 }

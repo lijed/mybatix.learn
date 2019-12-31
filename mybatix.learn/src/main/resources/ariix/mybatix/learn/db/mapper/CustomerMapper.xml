@@ -116,10 +116,10 @@
 	
 	<update id="updateCustomerWithTrim">
 		UPDATE CUST
- 		<trim  suffix="SET" suffixOverrides=",">
-			<if test="rFirstName != null and rFirstName.length > 0">r_first_name=#{rFirstName}</if>		
-			<if test="rMiddleName != null">R_MIDDLE_NAME=#{rMiddleName}</if>		
-			<if test="rLastName != null">R_LAST_NAME=#{rLastName}</if>		
+ 		<trim  prefix="SET" suffixOverrides=",">
+			<if test="rFirstName != null and rFirstName.length > 0">r_first_name=#{rFirstName},</if>		
+			<if test="rMiddleName != null">R_MIDDLE_NAME=#{rMiddleName},</if>		
+			<if test="rLastName != null">R_LAST_NAME=#{rLastName},</if>		
 		</trim>
 		where cust_id = #{custId}
 	</update>

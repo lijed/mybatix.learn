@@ -9,7 +9,11 @@
 		<property name="" value=""/>
 	</cache> -->
 
-	<select id="getCustomerById" parameterType="Long" resultMap="customerMap">
+	<!-- 开启二级缓存： blocking="" flushInterval= 刷新间隔, 默认是没有刷新间隔的 , readOnly= true or false只读,  eviction= 回收策略 LRU,FIFO,SOFT,WEAK，  size：1024个引用 -->
+<!-- 	<cache/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+	
+	<select id="getCustomerById" parameterType="Long" resultMap="customerMap" useCache="true">
 		SELECT
 			<include refid="customer_columns" />
 		FROM

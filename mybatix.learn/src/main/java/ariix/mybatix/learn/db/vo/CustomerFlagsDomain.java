@@ -3,8 +3,9 @@ package ariix.mybatix.learn.db.vo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CustomerFlagsDomain {
-
+public class CustomerFlagsDomain  implements BaseVo {
+	private static final long serialVersionUID = 1L;
+	
 	private Long custId;
 	private Integer flagId;
 	private Integer val;

@@ -2,7 +2,9 @@ package ariix.mybatix.learn.db.vo;
 
 import java.util.Date;
 
-public class CustomerIdsDomain  {
+public class CustomerIdsDomain implements BaseVo {
+
+	private static final long serialVersionUID = 1L; 
 
 	private Long custId;
 	private Integer type;

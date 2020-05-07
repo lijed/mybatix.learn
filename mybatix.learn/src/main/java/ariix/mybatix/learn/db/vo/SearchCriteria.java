@@ -1,2 +1,2 @@
 package ariix.mybatix.learn.db.vo;
-public interface SearchCriteria {}
+public interface SearchCriteria extends BaseVo {}

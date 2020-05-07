@@ -4,7 +4,12 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class CustomerSearchCriteria implements SearchCriteria {
+public class CustomerSearchCriteria implements SearchCriteria, BaseVo {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String countryCode;
 	private String firstName;

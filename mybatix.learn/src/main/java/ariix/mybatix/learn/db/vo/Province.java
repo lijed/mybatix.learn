@@ -2,7 +2,9 @@ package ariix.mybatix.learn.db.vo;
 
 import java.util.Set;
 
-public class Province {
+public class Province implements BaseVo {
+
+	private static final long serialVersionUID = 1L;
 
 	private String province;
 	private Set<City> citys;

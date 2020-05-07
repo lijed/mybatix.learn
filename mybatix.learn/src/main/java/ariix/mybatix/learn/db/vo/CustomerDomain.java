@@ -3,9 +3,14 @@ package ariix.mybatix.learn.db.vo;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Data;
+
 import org.apache.commons.lang3.StringUtils;
 
-public class CustomerDomain {
+@Data
+public class CustomerDomain implements BaseVo{
+
+	private static final long serialVersionUID = 1646996298572818678L;
 
 	public static final String CUSTOMER_TABLE_NAME = "CUST";
 

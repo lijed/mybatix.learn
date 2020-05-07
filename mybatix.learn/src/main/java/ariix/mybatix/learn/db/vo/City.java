@@ -2,8 +2,10 @@ package ariix.mybatix.learn.db.vo;
 
 import java.util.Set;
 
-public class City {
+public class City implements BaseVo {
 	
+	private static final long serialVersionUID = -3022511553516661076L;
+
 	private String city;
 	
 	private Set<String> distrcts;

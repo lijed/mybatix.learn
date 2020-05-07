@@ -3,7 +3,7 @@ package ariix.mybatix.learn.db.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class WebCategory implements Serializable{
+public class WebCategory implements BaseVo {
 
 	private static final long serialVersionUID = 1L;
 	
